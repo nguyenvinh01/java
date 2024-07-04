@@ -1,5 +1,6 @@
 package com.example.demo_java.controller;
 
+import com.example.demo_java.dto.request.ApiResponse;
 import com.example.demo_java.dto.request.UserCreationRequest;
 import com.example.demo_java.dto.request.UserUpdateRequest;
 import com.example.demo_java.entity.User;
@@ -18,15 +19,18 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("")
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createUser(request));
+        return apiResponse;
     }
 
-    @GetMapping("")
-    List<User> getUserList() {
-        return userService.getUserList();
-    }
+//    @GetMapping("")
+//    ApiResponse<List<User>> getUserList() {
+//        ApiResponse<List<User>> apiResponse = new ApiResponse<>();
+//
+//        return apiResponse.setResult(userService.getUserList());
+//    }
 
     @GetMapping("/{id}")
     User getUser(@PathVariable String id) {
