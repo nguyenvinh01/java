@@ -29,7 +29,8 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
             "/users",
             "/auth/login",
-            "/auth/introspect"
+            "/auth/introspect",
+            "/permissions"
     };
 
     protected static final String SIGNER_KEY = "SV+sm6AZ4u+56jNwcmxvNPP114llT6fMk3N9hI5qFVJbNBILwVXUp5wS/Om3V6ae\n";
@@ -38,6 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/permissions").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/users")
 //                        .hasAuthority("ROLE_ADMIN")
 //                        .hasRole(Role.ADMIN.name())
